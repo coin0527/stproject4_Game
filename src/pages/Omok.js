@@ -14,7 +14,6 @@ const Wrap = styled.div`
     font-size: 40px;
     font-weight: 600;
     margin-bottom: 20px;
-    margin-top: 10px;
   }
 `;
 
@@ -22,6 +21,40 @@ const GameBoardContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+`;
+const Con = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 75%;
+  margin: 0 auto;
+`;
+const Rule = styled.button`
+  width: 100px;
+  height: 30px;
+  border-top: none;
+  border-left: none;
+  background-color: none;
+  border-radius: 10px;
+  cursor: pointer;
+`;
+const Regame = styled.button`
+  width: 100px;
+  height: 30px;
+  border-top: none;
+  border-left: none;
+  background-color: none;
+  border-radius: 10px;
+  cursor: pointer;
+`;
+const Back = styled.button`
+  width: 100px;
+  height: 30px;
+  border-top: none;
+  border-left: none;
+  background-color: none;
+  border-radius: 10px;
+  cursor: pointer;
 `;
 
 export const Omok = () => {
@@ -114,23 +147,30 @@ export const Omok = () => {
   }
 
   return (
-    <Wrap>
-      <div className="App">
-        <h1>오목</h1>
-        <GameBoardContainer>
-          <div className="game-board">{renderBoard()}</div>
-        </GameBoardContainer>
-        <h3
-          style={{
-            marginTop: "20px",
-            fontSize: "20px",
-            fontWeight: "600",
-            color: currentPlayer === "black" ? "black" : "white",
-          }}
-        >
-          {winner ? <p>승자: {winner}</p> : <p>Player: {currentPlayer}</p>}
-        </h3>
-      </div>
-    </Wrap>
+    <>
+      <Con>
+        <Rule> Rule </Rule>
+        <Regame> 다시하기 </Regame>
+        <Back> 뒤로가기 </Back>
+      </Con>
+      <Wrap>
+        <div className="App">
+          <h1>오목</h1>
+          <GameBoardContainer>
+            <div className="game-board">{renderBoard()}</div>
+          </GameBoardContainer>
+          <h3
+            style={{
+              marginTop: "20px",
+              fontSize: "20px",
+              fontWeight: "600",
+              color: currentPlayer === "black" ? "black" : "white",
+            }}
+          >
+            {winner ? <p>승자: {winner}</p> : <p>Player: {currentPlayer}</p>}
+          </h3>
+        </div>
+      </Wrap>
+    </>
   );
 };
