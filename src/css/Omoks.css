@@ -1,6 +1,9 @@
 .App {
   text-align: center;
   margin-top: 50px;
+  background-color: #eee;
+  border-radius: 10px;
+  width: 75%;
 }
 
 .game-board {
@@ -13,16 +16,22 @@
 }
 
 .board-cell {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border: 1px solid #ccc;
   cursor: pointer;
+  @media screen and (max-width: 765px) {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .black {
   background-color: #000;
+  border-radius: 50%;
 }
 
 .white {
   background-color: #fff;
+  border-radius: 50%;
 }

@@ -1,7 +1,28 @@
 import React, { useState, useEffect, useCallback } from "react";
-// import "./css/Omok.css";
+import "../css/Omoks.css";
+import styled from "styled-components";
 
 const BOARD_SIZE = 15;
+
+const Wrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+`;
+
+const GameBoardContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
 
 export const Omok = () => {
   const [board, setBoard] = useState(
@@ -10,17 +31,15 @@ export const Omok = () => {
   const [currentPlayer, setCurrentPlayer] = useState("black");
   const [winner, setWinner] = useState(null);
 
-  // Memoized checkWinner using useCallback
   const checkWinner = useCallback(() => {
-    // Check for a winner (omok)
     for (let i = 0; i < BOARD_SIZE; i++) {
       for (let j = 0; j < BOARD_SIZE; j++) {
         if (board[i][j] !== null) {
           if (
             checkDirection(i, j, 1, 0) || // 가로
             checkDirection(i, j, 0, 1) || // 세로
-            checkDirection(i, j, 1, 1) || // 대각선 (우측하향)
-            checkDirection(i, j, 1, -1) // 대각선 (우측상향)
+            checkDirection(i, j, 1, 1) || // 대각선 (우하)
+            checkDirection(i, j, 1, -1) // 대각선 (우상)
           ) {
             setWinner(board[i][j]);
             return;
@@ -38,7 +57,6 @@ export const Omok = () => {
     const color = board[row][col];
     let count = 1;
 
-    // Check in the positive direction
     for (let i = 1; i < 5; i++) {
       const newRow = row + i * rowIncrement;
       const newCol = col + i * colIncrement;
@@ -54,7 +72,6 @@ export const Omok = () => {
       count++;
     }
 
-    // Check in the negative direction
     for (let i = 1; i < 5; i++) {
       const newRow = row - i * rowIncrement;
       const newCol = col - i * colIncrement;
@@ -97,10 +114,23 @@ export const Omok = () => {
   }
 
   return (
-    <div className="App">
-      <h1>오목 게임</h1>
-      {winner ? <p>승자: {winner}</p> : <p>현재 플레이어: {currentPlayer}</p>}
-      <div className="game-board">{renderBoard()}</div>
-    </div>
+    <Wrap>
+      <div className="App">
+        <h1>오목</h1>
+        <GameBoardContainer>
+          <div className="game-board">{renderBoard()}</div>
+        </GameBoardContainer>
+        <h3
+          style={{
+            marginTop: "20px",
+            fontSize: "20px",
+            fontWeight: "600",
+            color: currentPlayer === "black" ? "black" : "#",
+          }}
+        >
+          {winner ? <p>승자: {winner}</p> : <p>Player: {currentPlayer}</p>}
+        </h3>
+      </div>
+    </Wrap>
   );
 };

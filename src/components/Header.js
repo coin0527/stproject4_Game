@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrap = styled.div`
@@ -28,7 +29,9 @@ export const Header = () => {
     <Wrap>
       <Container>
         <Menu> = </Menu>
-        <Logo> JGame </Logo>
+        <Link to="/">
+          <Logo> JGame </Logo>
+        </Link>
       </Container>
     </Wrap>
   );
