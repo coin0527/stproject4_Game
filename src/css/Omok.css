@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-row {
+  display: flex;
+}
+
+.board-cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.black {
+  background-color: #000;
+}
+
+.white {
+  background-color: #fff;
+}

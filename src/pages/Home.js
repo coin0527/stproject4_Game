@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Wrap = styled.div``;
@@ -53,7 +54,9 @@ export const Home = () => {
     <Wrap>
       <Con>
         <Box>
-          <ImageBox1 />
+          <Link to="/omok">
+            <ImageBox1 />
+          </Link>
           오목
         </Box>
         <Box>
