@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Wrap = styled.div`
   position: absolute;
   bottom: 15px;
-  left: 45%;
+  left: 48%;
 `;
 
 const Line = styled.div`

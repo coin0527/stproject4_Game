@@ -125,7 +125,7 @@ export const Omok = () => {
             marginTop: "20px",
             fontSize: "20px",
             fontWeight: "600",
-            color: currentPlayer === "black" ? "black" : "#",
+            color: currentPlayer === "black" ? "black" : "white",
           }}
         >
           {winner ? <p>승자: {winner}</p> : <p>Player: {currentPlayer}</p>}
