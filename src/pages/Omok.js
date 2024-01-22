@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "../css/Omoks.css";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const BOARD_SIZE = 15;
 
@@ -146,12 +147,20 @@ export const Omok = () => {
     ));
   }
 
+  function handleRegame() {
+    window.location.reload(); //리겜
+  }
+
   return (
     <>
       <Con>
         <Rule> Rule </Rule>
-        <Regame> 다시하기 </Regame>
-        <Back> 뒤로가기 </Back>
+
+        <Regame onClick={handleRegame}> 다시하기 </Regame>
+
+        <Link to="/">
+          <Back> 뒤로가기 </Back>
+        </Link>
       </Con>
       <Wrap>
         <div className="App">
