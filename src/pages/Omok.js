@@ -16,6 +16,13 @@ const Wrap = styled.div`
     font-weight: 600;
     margin-bottom: 20px;
   }
+  h4 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: ${({ count }) =>
+      count <= 10 ? "crimson" : "black"}; /* 카운트 다운에 따른 색상 설정 */
+  }
 `;
 
 const GameBoardContainer = styled.div`
@@ -96,6 +103,8 @@ export const Omok = () => {
   const [currentPlayer, setCurrentPlayer] = useState("black");
   const [winner, setWinner] = useState(null);
   const [showRuleModal, setShowRuleModal] = useState(false);
+  const [count, setCount] = useState(30);
+  const [gameStarted, setGameStarted] = useState(false);
 
   const checkWinner = useCallback(() => {
     for (let i = 0; i < BOARD_SIZE; i++) {
@@ -116,8 +125,31 @@ export const Omok = () => {
   }, [board]);
 
   useEffect(() => {
-    checkWinner();
-  }, [board, checkWinner]);
+    if (gameStarted) {
+      const timer = setInterval(() => {
+        setCount((prevCount) => prevCount - 1);
+      }, 1000);
+
+      checkWinner();
+
+      if (winner) {
+        alert(`${winner}님이 승리하셨습니다!`);
+        clearInterval(timer);
+      }
+
+      return () => {
+        clearInterval(timer);
+      };
+    }
+  }, [board, checkWinner, winner, gameStarted]);
+
+  useEffect(() => {
+    if (count === 0) {
+      alert("30초를 모두 사용하셨습니다. 랜덤한 위치에 돌이 배치됩니다.");
+      handleRandomMove();
+      setCount(30); // 시간 초기화
+    }
+  }, [count, gameStarted]);
 
   function checkDirection(row, col, rowIncrement, colIncrement) {
     const color = board[row][col];
@@ -157,11 +189,16 @@ export const Omok = () => {
   }
 
   function handleClick(row, col) {
+    if (!gameStarted) {
+      setGameStarted(true); // 겜 시작
+    }
+
     if (board[row][col] === null && !winner) {
       const newBoard = [...board];
       newBoard[row][col] = currentPlayer;
       setBoard(newBoard);
       setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
+      setCount(30); // 오목돌을 놓을 때마다 카운트 초기화
     }
   }
 
@@ -191,6 +228,20 @@ export const Omok = () => {
     setShowRuleModal(false); //닫기
   }
 
+  function handleRandomMove() {
+    const randomRow = Math.floor(Math.random() * BOARD_SIZE);
+    const randomCol = Math.floor(Math.random() * BOARD_SIZE);
+
+    if (board[randomRow][randomCol] === null) {
+      const newBoard = [...board];
+      newBoard[randomRow][randomCol] = currentPlayer;
+      setBoard(newBoard);
+      setCurrentPlayer(currentPlayer === "black" ? "white" : "black");
+    } else {
+      handleRandomMove();
+    }
+  }
+
   return (
     <>
       <Con>
@@ -214,9 +265,10 @@ export const Omok = () => {
           </ModalContent>
         </ModalWrapper>
       )}
-      <Wrap>
+      <Wrap count={count}>
         <div className="App">
           <h1>오목</h1>
+          <h4> {count} </h4>
           <GameBoardContainer>
             <div className="game-board">{renderBoard()}</div>
           </GameBoardContainer>
@@ -225,7 +277,7 @@ export const Omok = () => {
               marginTop: "20px",
               fontSize: "20px",
               fontWeight: "600",
-              color: currentPlayer === "black" ? "black" : "white",
+              color: "black",
             }}
           >
             {winner ? <p>승자: {winner}</p> : <p>Player: {currentPlayer}</p>}
