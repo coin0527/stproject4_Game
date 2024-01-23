@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/stproject4_game/static/css/main.77347556.css",
+    "main.js": "/stproject4_game/static/js/main.ecd6354f.js",
+    "index.html": "/stproject4_game/index.html",
+    "main.77347556.css.map": "/stproject4_game/static/css/main.77347556.css.map",
+    "main.ecd6354f.js.map": "/stproject4_game/static/js/main.ecd6354f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.77347556.css",
+    "static/js/main.ecd6354f.js"
+  ]
+}

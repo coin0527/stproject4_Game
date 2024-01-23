@@ -1,0 +1,2 @@
+.App{background-color:#eee;border-radius:10px;margin-top:15px;text-align:center;width:75%}.game-board{flex-direction:column}.board-row,.game-board{display:flex}.board-cell{border:1px solid #ccc;cursor:pointer;height:40px;width:40px;@media screen and (max-width:765px){height:25px;width:25px}}.black{background-color:#000}.black,.white{border-radius:50%}.white{background-color:#fff}
+/*# sourceMappingURL=main.77347556.css.map*/
