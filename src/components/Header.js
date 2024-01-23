@@ -11,12 +11,6 @@ const Wrap = styled.div`
   margin: 10px auto;
 `;
 const Container = styled.div``;
-const Menu = styled.div`
-  width: 30px;
-  height: 30px;
-  font-size: 30px;
-  cursor: pointer;
-`;
 const Logo = styled.div`
   font-size: 30px;
   position: absolute;
@@ -28,7 +22,6 @@ export const Header = () => {
   return (
     <Wrap>
       <Container>
-        <Menu> = </Menu>
         <Link to="/">
           <Logo> JGame </Logo>
         </Link>

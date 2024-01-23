@@ -58,22 +58,54 @@ const Back = styled.button`
   cursor: pointer;
 `;
 
+const ModalWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  transition: 3s;
+  h2 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 18px;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+`;
+
 export const Omok = () => {
   const [board, setBoard] = useState(
     Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(null))
   );
   const [currentPlayer, setCurrentPlayer] = useState("black");
   const [winner, setWinner] = useState(null);
+  const [showRuleModal, setShowRuleModal] = useState(false);
 
   const checkWinner = useCallback(() => {
     for (let i = 0; i < BOARD_SIZE; i++) {
       for (let j = 0; j < BOARD_SIZE; j++) {
         if (board[i][j] !== null) {
           if (
-            checkDirection(i, j, 1, 0) || // 가로
-            checkDirection(i, j, 0, 1) || // 세로
-            checkDirection(i, j, 1, 1) || // 대각선 (우하)
-            checkDirection(i, j, 1, -1) // 대각선 (우상)
+            checkDirection(i, j, 1, 0) ||
+            checkDirection(i, j, 0, 1) ||
+            checkDirection(i, j, 1, 1) ||
+            checkDirection(i, j, 1, -1)
           ) {
             setWinner(board[i][j]);
             return;
@@ -148,20 +180,40 @@ export const Omok = () => {
   }
 
   function handleRegame() {
-    window.location.reload(); //리겜
+    window.location.reload(); // 리겜
+  }
+
+  function openRuleModal() {
+    setShowRuleModal(true); //오픈
+  }
+
+  function closeRuleModal() {
+    setShowRuleModal(false); //닫기
   }
 
   return (
     <>
       <Con>
-        <Rule> Rule </Rule>
-
+        <Rule onClick={openRuleModal}> Rule </Rule>
         <Regame onClick={handleRegame}> 다시하기 </Regame>
-
         <Link to="/">
           <Back> 뒤로가기 </Back>
         </Link>
       </Con>
+      {showRuleModal && (
+        <ModalWrapper onClick={closeRuleModal}>
+          <ModalContent>
+            <h2>Rule</h2>
+            <p>- 선공권은 항상 흑돌이 가진다.</p>
+            <p>- 상대방보다 먼저 자신의 돌 5개를 이으면 되는 간단한 룰</p>
+            <p>- 상대방이 둔 배치칸에는 둘 수 없음.</p>
+            <p>
+              - 단, 돌이 6개 이상 이어지는 구간에는 돌을 놓을 수 없고 제한시간
+              30초를 넘기면 랜덤한 곳에 돌이 배치된다.
+            </p>
+          </ModalContent>
+        </ModalWrapper>
+      )}
       <Wrap>
         <div className="App">
           <h1>오목</h1>
