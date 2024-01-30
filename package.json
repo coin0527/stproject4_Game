@@ -44,8 +44,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://coin0527.github.io/stproject4_game/#/",
   "devDependencies": {
     "gh-pages": "^6.1.1"
-  }
+  },
+  "homepage": "https://coin0527.github.io/stproject4_Game/#/"
 }
